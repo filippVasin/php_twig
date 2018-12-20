@@ -1,0 +1,56 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="col-md-auto">
+
+    </div>
+    <div class="col col-lg-2">
+        <a href="logout.php">Выйти</a>
+    </div>
+</div>
+
+<form action="upload.php" method="post" enctype="multipart/form-data" >
+    <input type="file" name="image">
+    <button type="submit" class="btn btn-primary">Загрузить картинку</button>
+</form>
+
+{% include 'errors.html' %}
+{% include 'message.html' %}
+
+<table class="table table-borderless">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Имя</th>
+        <th scope="col">user_id</th>
+        <th scope="col">Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for image in images %}
+         <tr>
+            <th scope="row">{{ image.id }}</th>
+            <th scope="row"><a class="fancybox" rel="group" href="upload/{{ image.name }}"><img src="upload/min_{{ image.name }}" alt="" /></a></th>
+            <th scope="row">{{ image.user_id }}</th>
+            <th scope="row"><a href="delete.php?id={{ image.id }}">Удалить</a></th>
+         </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function() {-->
+        <!--$(".fancybox").fancybox();-->
+    <!--});-->
+<!--</script>-->
+
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.js"></script>
+{% endblock %}
